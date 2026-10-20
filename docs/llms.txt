@@ -34,3 +34,11 @@ This UI only passed fake-wallet browser tests at release, no genuine independent
 ## Independent original educational guide, FREE (no payment or account)
 https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/guides/github-actions-security-checklist.html
 Five actionable questions about GitHub Actions YAML security: least-privilege workflow token, pinned immutable action versions, elevated pull_request_target risk, untrusted event text interpolation, and self-hosted runners. Links official GitHub docs. Not a formal audit.
+
+
+## Real original 0.01 USDC x402 public unsigned quote inspection, new human storefront
+FREE / NO WALLET: https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/x402-quote-checker.html
+Accepts ONLY a public unsigned PAYMENT-REQUIRED JSON or Base64 x402-v2 header, max3800 characters. Parses locally with no network request or private key, checks fixed Base8453 network, exact scheme, canonical native Circle USDC, basic 20-byte payTo, resource HTTPS syntax, integer atomic value. Structural consistency is NOT proof of merchant authenticity, safe investment, valid payment or successful delivery.
+Optional existing independently hosted original VM5 0.01 USDC native Circle Base x402 v2 GET: https://vm5-openapi-x402.onrender.com/v1/x402-preflight?quote=<urlencoded-public-unsigned-x402-v2-json>
+Free deliberately fictional GET response https://vm5-openapi-x402.onrender.com/v1/x402-sample
+PayTo original VM5 public receive-only wallet 0x6b01efA0705E91a7aca54271510bf9e594717f34, USDC contract 0x833589fCD6eDb6E08f4C7C32D4f71b54bdA02913, 10000 atomic = 0.01 USDC, exact Base eip155:8453. The report has no externally verified new buyer E2E mainnet settlement. Human user must separately consent to upload public quote, inspect 402 payment terms, use own authorized browser wallet, and sign one short-lived amount-specific EIP-3009 authorization; NO automated retries if outcome unknown.

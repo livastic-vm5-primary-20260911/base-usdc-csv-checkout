@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Free local x402 v2 PAYMENT-REQUIRED header inspector for Base USDC: decode public JSON or base64, examine quoted scheme/network/asset/amount/recipient, with no wallet or URL fetch. Optional one-time 0.01 Base USDC deeper report.">
+<meta property="og:title" content="x402 Payment Quote Inspector — free before-you-pay checks">
+<meta property="og:description" content="Decode an unsigned public HTTP 402 PAYMENT-REQUIRED header locally. Check chain, Circle USDC token, amount, scheme and recipient before authorizing a wallet payment.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/x402-quote-checker.html">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./styles.css">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://vm5-openapi-x402.onrender.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Free x402 PAYMENT-REQUIRED Quote Inspector — Base USDC</title>
+</head>
+<body>
+<header class="site-header">
+<a class="brand" href="./"><span class="brandmark">C</span> CommaCheck <span class="brandlight">/ Base</span></a>
+<nav aria-label="Products">
+<a href="./">Free CSV checks</a><a href="./workflow-risk.html">GitHub Actions YAML</a><a href="#try">x402 free inspector</a><a href="https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout" target="_blank" rel="noopener noreferrer">Source ↗</a>
+</nav>
+</header>
+<main>
+<section class="hero">
+<p class="eyebrow">x402 V2 · PUBLIC UNSIGNED QUOTES · NO ACCOUNT</p>
+<h1>Read the payment request before you sign it.</h1>
+<p class="lead">A 402 response is a price quote, not a receipt or a guarantee. Decode a <code>PAYMENT-REQUIRED</code> header or JSON on your device and inspect the payment scheme, chain, token, amount and recipient. The free checker never contacts the merchant or uses your wallet.</p>
+<div class="prices">
+<div class="price"><p>Free public quote inspector</p><strong>$0</strong><span>No wallet, account, tracking or remote fetch.</span></div>
+<div class="price"><p>Optional hosted static report</p><strong>0.01 USDC</strong><span>One explicit x402 payment on Base, no subscription.</span></div>
+</div>
+<p class="trustline"><strong>Important:</strong> A structurally valid payment quote can still point to a malicious seller or a service that never delivers. Check the seller independently. Never paste private keys, signed payment payloads, wallet seeds, bearer tokens or customer secrets.</p>
+</section>
+
+<section class="workflow" id="try">
+<div class="section-title"><span class="number">01</span><div><p class="eyebrow">FREE · LOCAL ONLY</p><h2>Inspect a public unsigned x402 quote</h2></div></div>
+<p>A deliberately fictitious <code>example.invalid</code> quote is preloaded. Paste the public, unsigned <code>PAYMENT-REQUIRED</code> base64 header or raw JSON you want to analyze (maximum 3,800 characters). This form never sends your input to a remote URL until you separately opt into a paid report.</p>
+<label class="field"><span>Public unsigned 402 quote — JSON or Base64</span>
+<textarea id="inspect-input" rows="13" maxlength="3800" spellcheck="false" aria-describedby="inspect-hint"></textarea>
+</label>
+<p class="small" id="inspect-hint">Use only information a public merchant deliberately exposes to anyone in an HTTP 402 response. Do not paste your wallet's signed authorization or any private buyer data.</p>
+<div class="actions"><button type="button" class="primary" id="inspect-local">Analyze locally — no wallet</button></div>
+<pre class="result code" id="inspect-free-output" aria-live="polite" hidden></pre>
+<p class="small">Free checks are deliberately limited to structural consistency. They do not fetch the URL, verify who owns the payee address, simulate a transaction, test facilitator settlement or confirm product delivery.</p>
+</section>
+
+<section class="workflow" id="optional">
+<div class="section-title"><span class="number">02</span><div><p class="eyebrow">OPTIONAL · USER AUTHORIZED</p><h2>Run the hosted 0.01 USDC rule-based review</h2></div></div>
+<p>The existing VM5 x402 API can return a more detailed machine-readable structural review of the **public unsigned** quote you choose to share. This is not an audit or token-safety service. The first request gets a real 402 price quote; **the quote content is sent to VM5 only after you tick the first consent box**, before any wallet signature. Only proceed with material that is already public and nonsecret.</p>
+<label class="consent"><input type="checkbox" id="inspect-share-consent"><span>I confirm this is only a public, unsigned x402 quote with no credentials, customer details or signatures, and I permit sending it to VM5's server to request the fixed-price quote.</span></label>
+<div class="actions"><button type="button" id="inspect-get-quote" disabled>1 — Verify the live 0.01 Base USDC price</button></div>
+<div class="quote-panel" id="inspect-price-details" hidden>
+<div class="quote-line"><span>Verified price</span><strong id="inspect-amount"></strong></div>
+<div class="quote-line"><span>Network</span><strong>Base mainnet · eip155:8453</strong></div>
+<div class="quote-line mono"><span>Token contract</span><code id="inspect-token"></code></div>
+<div class="quote-line mono"><span>Payment recipient</span><code id="inspect-payee"></code></div>
+<p class="small">The page blocks wallet authorization if the seller suddenly changes the 0.01 price, recipient, token, network, resource URL or signing domain.</p>
+</div>
+<label class="consent"><input type="checkbox" id="inspect-paid-consent"><span>I independently reviewed the merchant and authorize exactly <strong>one 0.01 native Circle Base USDC</strong> payment for a static public quote report. I understand that a failed browser response does not prove the on-chain authorization was unused. I will reconcile before retrying.</span></label>
+<div class="actions"><button class="primary" type="button" id="inspect-approve" disabled>2 — Authorize one Base USDC payment</button></div>
+<p class="small">For paid use, a compatible EIP-1193 wallet such as MetaMask is needed. A user must inspect and approve a fixed-amount, short-lived EIP-712/EIP-3009 transfer authorization. The website never reads private keys, executes an unlimited ERC-20 approval, stakes assets or automatically retries a signed payment. No actual independent human payment was verified when this page was published.</p>
+<a id="inspect-tx-link" href="https://basescan.org/" target="_blank" rel="noopener noreferrer" hidden>View the payment on BaseScan ↗</a>
+<pre class="result code" id="inspect-paid-output" aria-live="polite" hidden></pre>
+<div class="status" id="inspect-status" role="status" data-state="info" aria-live="polite"></div>
+</section>
+
+<section class="details">
+<div><p class="eyebrow">WHEN IS THIS USEFUL?</p><h2>Debug the payment request, not the merchant's intentions.</h2>
+<p>When an x402 client fails, start by checking the protocol version, accepted network, token contract, atomic amount and recipient format. A quote may be correctly formed even if the vendor is offline, the wallet cannot sign that asset, the facilitator is unavailable, or the service is dishonest. These are <em>separate</em> problems requiring separate verification.</p>
+<p>Try the <a href="https://vm5-openapi-x402.onrender.com/v1/x402-sample" target="_blank" rel="noopener noreferrer">original free fictional x402 quote example</a> or inspect the <a href="https://vm5-openapi-x402.onrender.com/v1/docs" target="_blank" rel="noopener noreferrer">existing pay-per-call API documentation</a>.</p>
+</div>
+<div><p class="eyebrow">NO INCOME CLAIMS</p><h2>What we actually tested</h2>
+<p>This is an original AI-assisted browser tool built by a single human-owned VM5 studio. Its static parser uses no RPC and has no remote URL fetching. The optional hosted endpoint is an existing VM5 service at <code>GET /v1/x402-preflight</code>; it returns a genuine x402 v2 HTTP 402 price quote for 0.01 USDC. A signed buyer-to-facilitator settlement for this new human page is not independently verified.</p>
+<p>An unsigned payment request can never establish that the merchant is trustworthy. Protect your own wallet and validate the token, seller identity, destination URL and actual delivery separately. This tool is not investment, legal, security, tax or financial advice.</p>
+</div>
+</section>
+</main>
+<footer><span>VM5 Delivery Lab · original AI-assisted development · one economic owner</span>
+<span><a href="./">CSV checks</a> · <a href="./workflow-risk.html">CI risk hints</a> · <a href="mailto:onecursora1@gmail.com?subject=x402%20quote%20inspector">Support</a></span></footer>
+<script type="module" src="./x402-quote-app.mjs"></script>
+</body>
+</html>
