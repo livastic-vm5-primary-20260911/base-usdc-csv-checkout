@@ -75,3 +75,21 @@ The original fully static [Email DNS checkout](https://livastic-vm5-primary-2026
 Source: `docs/email-dns-core.mjs`, `docs/email-dns-app.mjs`, `docs/email-dns.html`, `tests/email-dns-*.test.mjs`. Its static Content Security Policy allows only this merchant, no analytics. No operator MetaMask keys/seed, no gas/funding, no back-end changes, no auto-retry, no spam, no false KYC or assumed third-party purchase. The signed successful-settlement path is tested only with synthetic FAKE wallet/API fixtures, not an external mainnet buyer. Only an independent outside buyer's unique finalized canonical Base USDC receipt and actual verified paid delivery establishes a new sale. Historical original VM1/VM5 receipts must not be double counted.
 
 This is domain-level public DNS configuration, NOT an SMTP deliverability, DKIM selector, mailbox or security certification. No personal emails or customer records should be submitted; domain data is sent to the merchant only for the buyer-chosen quote. Do not promise refunds or immunity from wrong wallet/network. Existing original 0.005 CSV and 0.20 workflow-risk buyer products remain unchanged.
+
+
+## Demand-first: free REAL public-domain DNS overview (no wallet)
+The existing VM5 human DNS checkout now includes an opt-in FREE real public
+MX/SPF/DMARC overview. Explicitly clicking its free button makes exactly three
+independent Google Public DNS JSON-over-HTTPS GET requests, without sending
+anything to the merchant or connecting a wallet. Only the visitor-selected
+public domain is queried, not an email address or customer record. Google is
+a THIRD-PARTY RESOLVER and can receive the domain and normal browser metadata;
+users are told so before clicking. No personal data, key, private company
+records or paid RPCs; no query runs on site load. Basic record presence and
+Null MX are reported, not security, deliverability, mailbox existence or
+Google Groups permission. DNS can be cached or temporary; errors do not mean
+missing records. The existing optional separate 0.005 canonical native Circle
+Base USDC report remains available for fuller machine-readable domain detail.
+The user must explicitly choose and approve their own purchase; no owner funds,
+wallet signatures, or fake purchase are involved. The free provider's service
+may change independently. Source: docs/dns-public-free.mjs .

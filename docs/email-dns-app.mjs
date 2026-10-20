@@ -1,3 +1,4 @@
+import {getFreePublicDns} from "./dns-public-free.mjs";
 import {
  DNS,INVENTED_DNS_REPORT,canonicalPublicDomain,dnsRequestUrl,parseDnsRequired,confirmDnsPaidReport,
 } from "./email-dns-core.mjs";
@@ -15,12 +16,40 @@ function reset(){
  state.quote=null;state.requestUrl=null;state.domain=null;
  $("dns-quote-panel").hidden=true;$("dns-pay").disabled=true;
  $("dns-paid").hidden=true;$("dns-explorer").hidden=true;
+ $("dns-live-result").hidden=true;
+ $("dns-live-status").textContent="Input changed. Click the free live public DNS button again for this domain.";
  msg("Domain changed. Request a new, unsigned live 402 quote before considering payment.");
 }
 function free(){
  $("dns-free-report").textContent=JSON.stringify(INVENTED_DNS_REPORT,null,2);
  $("dns-free-report").hidden=false;
  msg("Fictional example shown locally. No network, user data or wallet used.","ok");
+}
+async function liveFree(){
+ if(state.busy||state.signedAttempt)return;
+ const domain=canonicalPublicDomain($("dns-domain").value);
+ state.busy=true;
+ $("dns-live-free").disabled=true;
+ $("dns-live-result").hidden=true;
+ $("dns-live-status").dataset.state="info";
+ $("dns-live-status").textContent="Querying Google Public DNS for three public DNS records. No paid VM5 merchant, no wallet or funds.";
+ try{
+  const result=await getFreePublicDns(domain);
+  if($("dns-domain").value.toLowerCase()!==domain)
+    throw Error("Domain changed while DNS was queried; outdated result discarded.");
+  $("dns-live-result").textContent=JSON.stringify(result,null,2);
+  $("dns-live-result").hidden=false;
+  $("dns-live-status").dataset.state=result.ok?"ok":"warning";
+  $("dns-live-status").textContent=result.ok?
+    "FREE public MX/SPF/DMARC configuration overview shown. This does not verify deliverability; wallet calls: 0.":
+    "Independent DNS resolver reports NXDOMAIN, not tested against SMTP. No wallet or purchase.";
+ }catch(e){
+  $("dns-live-status").dataset.state="warning";
+  $("dns-live-status").textContent="Free DNS unavailable: "+String(e.message||e)+". No wallet or payment. Unavailable is NOT evidence a domain lacks records.";
+ }finally{
+  state.busy=false;
+  if(!state.signedAttempt)$("dns-live-free").disabled=false;
+ }
 }
 async function getQuote(){
  if(state.signedAttempt||state.busy)return;
@@ -104,7 +133,7 @@ async function pay(){
  }finally{
   state.busy=false;
   if(state.signedAttempt){
-   $("dns-pay").disabled=true;$("dns-quote").disabled=true;$("dns-domain").readOnly=true;
+   $("dns-pay").disabled=true;$("dns-quote").disabled=true;$("dns-live-free").disabled=true;$("dns-domain").readOnly=true;
   } else {$("dns-quote").disabled=false;}
  }
 }
@@ -112,6 +141,7 @@ function start(){
  $("dns-domain").value="example.com";
  $("dns-domain").addEventListener("input",reset);
  $("dns-free").addEventListener("click",free);
+ $("dns-live-free").addEventListener("click",()=>liveFree().catch(e=>msg(String(e.message||e),"warning")));
  $("dns-quote").addEventListener("click",()=>getQuote().catch(e=>msg(String(e.message||e),"warning")));
  $("dns-pay").addEventListener("click",()=>pay().catch(e=>msg(String(e.message||e),"warning")));
  msg("Start with a free fictional sample, or enter a PUBLIC DNS domain to see a real, UNPAID 0.005 Base USDC quote. No wallet connection on load.");

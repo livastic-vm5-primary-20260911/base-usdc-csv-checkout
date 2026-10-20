@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/email-dns.html">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./styles.css">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://vm5-openapi-x402.onrender.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://vm5-openapi-x402.onrender.com https://dns.google; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Email DNS Report — 0.005 USDC Buyer Checkout | VM5 Delivery Lab</title>
 </head>
 <body>
@@ -22,8 +22,8 @@
 <p class="eyebrow">MACHINE-READABLE EMAIL-DOMAIN DNS • REAL X402 V2 QUOTE</p>
 <h1>A public DNS report, not another account.</h1>
 <p class="lead">Does the domain publish mail exchangers (MX), an SPF authorization policy and a DMARC policy? Check the <strong>public DNS records</strong> for one domain. See a free <em>invented sample</em> first, then optionally request one real merchant price quote and approve a <strong>0.005 native Circle Base USDC</strong> one-time payment from your own compatible wallet.</p>
-<div class="prices"><div class="price"><p>Free preview</p><strong>0 USDC</strong><span>Invented sample, in your browser, zero API/wallet calls</span></div><div class="price"><p>Optional report</p><strong>0.005 USDC</strong><span>Buyer-approved x402 payment, Base mainnet</span></div></div>
-<p class="small">Your public domain is sent only if you request the live merchant quote. No email address, mailbox credentials, CSV, messages or customer records are needed. An unsigned HTTP 402 price is not a customer sale or a paid API response.</p>
+<div class="prices"><div class="price"><p>Free public DNS overview</p><strong>0 USDC</strong><span>Real MX/SPF/DMARC domain summary via Google DNS, plus a fictional example. No wallet.</span></div><div class="price"><p>Optional report</p><strong>0.005 USDC</strong><span>Buyer-approved x402 payment, Base mainnet</span></div></div>
+<p class="small">Your chosen public domain goes to Google Public DNS only when you click the separate free REAL DNS preview, or to the original VM5 merchant when you request a paid price quote. No email address, mailbox credentials, CSV, messages or customer records are needed. An unsigned HTTP 402 price is not a customer sale or a paid API response.</p>
 </section>
 <section class="workflow" id="try" aria-labelledby="sample-title">
 <div class="section-title"><span class="number">01</span><div><p class="eyebrow">FREE • ZERO NETWORK REQUESTS</p><h2 id="sample-title">Inspect the example response first</h2></div></div>
@@ -35,7 +35,12 @@
 <div class="section-title"><span class="number">02</span><div><p class="eyebrow">OPTIONAL • NO WALLET FOR QUOTE</p><h2 id="quote-title">Request a domain-specific 402 quote</h2></div></div>
 <p>Enter just one public DNS hostname, such as <code>example.com</code>. Email addresses, URL paths, local network names, IP addresses and customer records are rejected. A bounded public DNS check happens before a payable 402 quote; a failed query may return HTTP 400, 404, 429 or 503 with <strong>no charge</strong>.</p>
 <label class="field"><span>Public DNS domain (ASCII or IDNA punycode)</span><input id="dns-domain" type="text" maxlength="253" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="example.com"></label>
-<div class="actions"><button type="button" id="dns-quote">1 — Fetch an UNSIGNED 0.005-USDC 402 quote</button></div>
+<p class="small"><strong>Free live public DNS preview:</strong> You may explicitly request three DNS-over-HTTPS GETs (MX, TXT/SPF, _dmarc TXT) for the one public domain you entered through independent <a href="https://developers.google.com/speed/public-dns/docs/doh" target="_blank" rel="noopener noreferrer">Google Public DNS</a>. That third-party resolver receives your chosen domain and normal browser request metadata. Never enter a private customer hostname. VM5 does not receive these free queries. It is public DNS configuration only, NOT real mail delivery, an inbox test or full SPF/DMARC/DKIM validation. No wallet, fee or subscription.</p>
+<div class="actions">
+<button type="button" id="dns-live-free" class="primary">Run FREE real public DNS preview · 0 USDC</button>
+<button type="button" id="dns-quote">1 — Fetch an UNSIGNED 0.005-USDC 402 quote</button></div>
+<div id="dns-live-status" class="status" role="status" data-state="info" aria-live="polite">Live DNS was NOT requested; it runs only after the FREE button is clicked.</div>
+<pre class="result code" id="dns-live-result" aria-live="polite" hidden></pre>
 <div id="dns-quote-panel" class="quote-panel" hidden>
 <p><strong>Check everything before opening a wallet.</strong> The exact quote is checked against the original VM5 merchant, Base 8453, canonical Circle USDC, 5000 atomic units, fixed recipient, approved transfer scheme, and exact requested domain.</p>
 <div class="quote-line"><span>Amount</span><strong id="dns-amount"></strong></div>
@@ -59,7 +64,7 @@
 <p class="eyebrow">WHAT THIS CANNOT PROMISE</p>
 <h2>DNS configuration ≠ delivered email.</h2>
 <p>No user mailbox is accessed. This does <strong>not</strong> verify individual email addresses, SPF/DKIM alignment on a specific message, SMTP responses, spam placement, sender consent, inbox replies, DNS control or business identity. We do not send messages, inspect customer devices, or use buyer wallet seeds.</p>
-<p>DNS is a changing external source. A returned technical configuration report is not proof the mail system works and is not a security/compliance certification. The hosted server sees the public DNS domain for the paid query. Payment requires wallet-held authentic native Circle Base USDC on Base and a compatible EIP-712 signature method.</p>
+<p>DNS is a changing external source. The opt-in FREE DNS report queries Google Public DNS directly from your browser; a separately chosen paid 0.005-USDC JSON report contacts our original Render seller API. Neither verifies mailbox/SMTP. A returned technical configuration report is not proof the mail system works and is not a security/compliance certification. The hosted server sees the public DNS domain for the paid query. Payment requires wallet-held authentic native Circle Base USDC on Base and a compatible EIP-712 signature method.</p>
 <p><a href="https://livastic-vm5-primary-20260911.github.io/vm5-delivery-lab/email-dns-preflight/" target="_blank" rel="noopener noreferrer">Read the free public-domain technical guide ↗</a>, <a href="https://vm5-openapi-x402.onrender.com/openapi.json" target="_blank" rel="noopener noreferrer">merchant OpenAPI specification ↗</a>, or <a href="https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout/issues/new?template=real-user-feedback.yml" target="_blank" rel="noopener noreferrer">report a real, nonconfidential usage problem ↗</a>.</p>
 <p class="small">Original AI-assisted VM5 Delivery Lab, one human beneficial owner. The live unsigned 402 and fictional example were tested; live independent human BUYER-SIGNED purchase plus delivery for this DNS SKU was NOT tested or confirmed. Existing historical seller receipts belong to other products and are not attributed here. No income guarantee or self-generated test purchase.</p>
 </div>
