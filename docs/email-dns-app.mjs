@@ -17,6 +17,7 @@ function reset(){
  $("dns-quote-panel").hidden=true;$("dns-pay").disabled=true;
  $("dns-paid").hidden=true;$("dns-explorer").hidden=true;
  $("dns-live-result").hidden=true;
+ $("dns-real-feedback").hidden=true;
  $("dns-live-status").textContent="Input changed. Click the free live public DNS button again for this domain.";
  msg("Domain changed. Request a new, unsigned live 402 quote before considering payment.");
 }
@@ -31,6 +32,7 @@ async function liveFree(){
  state.busy=true;
  $("dns-live-free").disabled=true;
  $("dns-live-result").hidden=true;
+ $("dns-real-feedback").hidden=true;
  $("dns-live-status").dataset.state="info";
  $("dns-live-status").textContent="Querying Google Public DNS for three public DNS records. No paid VM5 merchant, no wallet or funds.";
  try{
@@ -39,6 +41,7 @@ async function liveFree(){
     throw Error("Domain changed while DNS was queried; outdated result discarded.");
   $("dns-live-result").textContent=JSON.stringify(result,null,2);
   $("dns-live-result").hidden=false;
+  $("dns-real-feedback").hidden=false;
   $("dns-live-status").dataset.state=result.ok?"ok":"warning";
   $("dns-live-status").textContent=result.ok?
     "FREE public MX/SPF/DMARC configuration overview shown. This does not verify deliverability; wallet calls: 0.":

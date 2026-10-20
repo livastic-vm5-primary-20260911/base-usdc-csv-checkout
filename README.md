@@ -93,3 +93,17 @@ Base USDC report remains available for fuller machine-readable domain detail.
 The user must explicitly choose and approve their own purchase; no owner funds,
 wallet signatures, or fake purchase are involved. The free provider's service
 may change independently. Source: docs/dns-public-free.mjs .
+
+
+## Genuine opt-in free-user feedback
+After an actual Google Public DNS lookup returns a response, this same buyer
+page now shows two voluntary honest feedback choices: the previously published
+VM5 Google-hosted nonconfidential project inquiry form and the existing
+public GitHub issue template. A user is clearly warned that Google/GitHub
+may collect account metadata or require login. No response is fabricated;
+no fake identity, paid order, customer data or automatic submission occurs.
+The links remain hidden until a user runs an actual free public-domain query,
+and hide again if the domain changes. An optional separate wallet signature
+for the same existing merchant API is still buyer-controlled and fully
+unrelated to form submission. This provides a way to identify a real need
+without demanding keys or USDC upfront.

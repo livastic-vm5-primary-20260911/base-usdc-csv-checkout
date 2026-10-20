@@ -53,11 +53,13 @@ test("real headless Chrome desktop and mobile: opt-in free REAL DNS results only
    const res=await page.goto(base+"/email-dns.html",{waitUntil:"networkidle",timeout:12000});
    assert.equal(res.status(),200);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),true);
+   assert.equal(await page.locator("#dns-real-feedback").isHidden(),true);
    assert.equal(counters.all,0);
    assert.deepEqual(thirdParty,[]);
    await page.locator("#dns-free").click();
    assert.match(await page.locator("#dns-free-report").innerText(),/FIXTURE_ONLY_NOT_LIVE_DNS/);
    assert.equal(counters.all,0);
+   assert.equal(await page.locator("#dns-real-feedback").isHidden(),true);
    await page.locator("#dns-live-free").click();
    await page.locator("#dns-live-result").waitFor({state:"visible",timeout:9500});
    const text=await page.locator("#dns-live-result").innerText();
@@ -67,10 +69,13 @@ test("real headless Chrome desktop and mobile: opt-in free REAL DNS results only
    assert.equal(result.spf.published,true);
    assert.equal(result.dmarc.requestedPolicy,"reject");
    assert.equal(result.costUSDC,"0");
+   assert.equal(await page.locator("#dns-real-feedback").isVisible(),true);
    assert.deepEqual(counters,{all:3,mx:1,txt:1,dmarc:1});
    assert.equal(thirdParty.filter(u=>u.startsWith("https://vm5-openapi-x402.onrender.com")).length,0);
    assert.deepEqual(await page.evaluate(()=>window.__walletCalls),[]);
    assert.deepEqual(scriptsErrors,[]);
+   await page.locator("#dns-domain").fill("github.com");
+   assert.equal(await page.locator("#dns-real-feedback").isHidden(),true);
    console.log("FREE_REAL_DNS_MOCK_NETWORK_BUYER_RENDER_PASS",viewport.width,"3 public DoH GET, 0 merchant, 0 wallet");
    await ctx.close();
   }
