@@ -66,3 +66,12 @@ We are not assuming that page views, quote reads or developer posts mean actual 
 Submit: https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout/issues/new?template=real-user-feedback.yml
 
 Only genuine unrelated human feedback and verified independent paid onchain settlement counts in the sales funnel. AI-generated feedback, our own VM agents' comments, test checkouts and promotional clicks are not customers.
+
+
+## Real optional public-domain DNS human checkout (new)
+
+The original fully static [Email DNS checkout](https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/email-dns.html) reuses the already-running VM5 merchant `GET /v1/email-dns-preflight?domain=<PUBLIC_DOMAIN>` and original native Base Circle USDC receiving account (no new key). The merchant already provides a genuine **unsigned 402 quote for 5,000 atomic USDC units = 0.005 native Circle USDC** and one completely fictional free `/v1/email-dns-sample`. This page improves the buyer path: local invented sample (no network or wallet), strictly validated public-domain-only quote, exact same-owner contract/price/payTo and resource URL, explicit buyer opt-in, expiring EIP-3009 `TransferWithAuthorization` signed **only in the BUYER wallet** and submitted exactly once, and clearly marked ambiguous/failed response semantics.
+
+Source: `docs/email-dns-core.mjs`, `docs/email-dns-app.mjs`, `docs/email-dns.html`, `tests/email-dns-*.test.mjs`. Its static Content Security Policy allows only this merchant, no analytics. No operator MetaMask keys/seed, no gas/funding, no back-end changes, no auto-retry, no spam, no false KYC or assumed third-party purchase. The signed successful-settlement path is tested only with synthetic FAKE wallet/API fixtures, not an external mainnet buyer. Only an independent outside buyer's unique finalized canonical Base USDC receipt and actual verified paid delivery establishes a new sale. Historical original VM1/VM5 receipts must not be double counted.
+
+This is domain-level public DNS configuration, NOT an SMTP deliverability, DKIM selector, mailbox or security certification. No personal emails or customer records should be submitted; domain data is sent to the merchant only for the buyer-chosen quote. Do not promise refunds or immunity from wrong wallet/network. Existing original 0.005 CSV and 0.20 workflow-risk buyer products remain unchanged.
