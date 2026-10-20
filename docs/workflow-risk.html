@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Check GitHub Actions YAML for common risky CI patterns locally for free. Optional 0.20 Base USDC x402 static risk report with source-linked SARIF. No account or keys.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://vm5-openapi-x402.onrender.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./styles.css">
+<link rel="canonical" href="https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/workflow-risk.html">
+<title>GitHub Actions YAML risk checks — free preview, optional 0.20 Base USDC report</title>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="./"><span class="brandmark">C</span> CommaCheck <span class="brandlight">/ Base</span></a>
+<nav aria-label="Navigation"><a href="./">CSV audit</a><a href="#try">Free YAML hints</a><a href="#checkout">0.20 USDC report</a><a href="https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout" rel="noopener noreferrer" target="_blank">Source ↗</a></nav></header>
+<main>
+<section class="hero">
+<p class="eyebrow">CI CONFIGURATION CHECKS · NO LOGIN · NO PRIVATE FILES</p>
+<h1>Catch risky CI configuration before you merge.</h1>
+<p class="lead">Unpinned GitHub Actions, broad workflow token rights and unsafe pull-request event handling deserve a closer look. Start with local regex hints, then choose a static, more detailed risk report via native Circle Base USDC.</p>
+<div class="prices"><div class="price"><p>Local pattern preview</p><strong>$0</strong><span>Offline in this browser.</span></div>
+<div class="price"><p>Structured report + SARIF</p><strong id="workflow-price">0.20 USDC</strong><span>Fixed-price, one request, no subscription.</span></div></div>
+<p class="trustline">For developers, not automated security certification. Never paste secrets, tokens, private clients' CI workflows or files you lack permission to analyze.</p>
+</section>
+<section class="workflow" id="try">
+<div class="section-title"><span class="number">01</span><div><p class="eyebrow">FREE BROWSER PREVIEW</p><h2>Your workflow stays on your device</h2></div></div>
+<p>A local heuristic finds a few patterns worth inspecting. It does <strong>not</strong> parse complete YAML or replace a real security review; it is designed to help decide whether the paid static source-linked report is worth requesting.</p>
+<label class="field"><span>Choose nonconfidential .yaml / .yml (maximum 48,000 bytes)</span><input id="workflow-file" type="file" accept=".yml,.yaml,text/yaml,text/plain"></label>
+<label class="field"><span>Workflow YAML</span><textarea id="workflow-source" rows="11" maxlength="48000" spellcheck="false"></textarea></label>
+<label class="field"><span>Safe filename (basename only)</span><input id="filename" type="text" value="ci.yml" maxlength="94"></label>
+<div class="actions"><button type="button" class="primary" id="workflow-free">Analyze locally for free</button></div>
+<pre class="result code" id="workflow-free-output" aria-live="polite" hidden></pre>
+</section>
+<section class="workflow" id="checkout">
+<div class="section-title"><span class="number">02</span><div><p class="eyebrow">OPTIONAL VERIFIED QUOTE</p><h2>Get the full rule-based JSON report</h2></div></div>
+<p>The existing VM5 analyzer checks GitHub Actions pins, token permissions, dangerous PR head checkout/interpolation, and self-hosted-runner exposure, with optional SARIF. It does <strong>not</strong> execute workflows, access private repositories or guarantee that software is secure.</p>
+<div class="actions"><button id="workflow-review" disabled type="button">1 — Verify live 0.20 USDC price</button></div>
+<p class="small">This preview quote uses an already-published, nonsecret example workflow. Your own YAML is NOT uploaded before signing.</p>
+<div class="quote-panel" id="workflow-quote" hidden>
+<div class="quote-line"><span>Verified price</span><strong id="workflow-amount"></strong></div>
+<div class="quote-line"><span>Network</span><strong>Base · eip155:8453</strong></div>
+<div class="quote-line mono"><span>Circle USDC token</span><code id="workflow-token"></code></div>
+<div class="quote-line mono"><span>Payee</span><code id="workflow-payee"></code></div>
+</div>
+<label class="consent"><input id="workflow-consent" type="checkbox">
+<span>I have authority to send this <strong>nonsecret</strong> YAML to VM5's hosted processor and expressly consent to ONE 0.20 native Circle Base USDC payment. I understand this is a heuristic scan, not a professional audit; if settlement fails or times out I will not retry before reconciling the chain.</span>
+</label>
+<div class="actions"><button class="primary" id="workflow-pay" type="button" disabled>2 — Authorize one Base USDC purchase</button></div>
+<p class="small">Compatible EIP-1193 browser wallet (such as MetaMask) required for the paid report only. The wallet signs a fixed-amount 5-minute EIP-3009 payment authorization, not an unlimited token approval. You inspect and accept the amount/recipient. No keys are transferred to this website. An uncertain settlement may already have charged you: do not retry blindly.</p>
+<a id="workflow-tx" target="_blank" rel="noopener noreferrer" href="https://basescan.org/" hidden>See transaction on BaseScan ↗</a>
+<pre class="result code" id="workflow-paid-result" aria-live="polite" hidden></pre>
+<div role="status" id="workflow-status" data-state="info" class="status" aria-live="polite"></div>
+</section>
+<section class="details">
+<div><p class="eyebrow">REAL UTILITY, CLEAR LIMITS</p><h2>Why pay only when you need it?</h2>
+<p>Real GitHub Actions configuration can put a workflow at risk. For simple checks, local hints are sufficient to start a code review. For a reproducible structured output, the existing separate server can produce findings with line references, counts and optional SARIF. The developer remains responsible for evaluating each finding and protecting repository secrets.</p></div>
+<div><p><strong>Privacy:</strong> Free preview is purely browser-based and stores nothing remotely. After the user signs, the authorized YAML is transmitted to the separately hosted merchant API for one static report. This service says it does not persist raw YAML. Do not send sensitive or proprietary content under any circumstance.</p>
+<p><strong>Origin:</strong> The MIT-licensed analyzer was originally built by the same economic owner's VM2 team, with <a href="https://github.com/livastic-vm2-primary-20260911/apify-workflow-guard" target="_blank" rel="noopener noreferrer">public source</a>. VM5's distinct hosted x402 merchant provides the processing and payment gate. See <a href="https://vm5-openapi-x402.onrender.com/v1/workflow-risk-sample" target="_blank" rel="noopener noreferrer">the free reproducible example response</a> and <a href="https://vm5-openapi-x402.onrender.com/v1/docs" target="_blank" rel="noopener noreferrer">API terms</a>. This checkout has no separately confirmed organic buyers at release.</p></div>
+</section>
+</main>
+<footer><span>CommaCheck Base · VM5 Delivery Lab · one human-owned AI-assisted workflow</span>
+<span>No investment, staking, token deposits or yield. <a href="mailto:onecursora1@gmail.com?subject=GitHub%20Actions%20workflow%20report">Support</a> · <a href="./">CSV quality page</a></span></footer>
+<script type="module" src="./workflow-app.mjs"></script>
+</body></html>

@@ -18,3 +18,15 @@ Original owner historical paid automated external buyer transactions exist for D
 Free external agent tool: https://livastic-vm1-primary.github.io/paperpilot-tools/csv-quality-api.html#agent-skill
 
 For real legal/licensing/security/compliance decisions consult a human. No customer data, secret keys, passwords, proprietary workbooks or financial statements in test requests. Wallet payment must be initiated by an actual independent buyer.
+
+
+## Additional real, separately priced x402 developer service
+Human page: https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/workflow-risk.html
+Free static heuristic YAML checks run only in buyer's browser; no wallet or transfer.
+Paid existing API: POST https://vm5-openapi-x402.onrender.com/v1/workflow-risk
+Public sample: GET https://vm5-openapi-x402.onrender.com/v1/workflow-risk-sample
+Content-type: application/json; {"workflowYaml":"name: CI\non: push\njobs: ...","filename":"ci.yml","includeSarif":true}
+Price: 200000 atomic native Circle Base8453 USDC = 0.20 USDC; original VM5 recipient/token, no ERC20 allowance/deposit.
+Real unsigned valid POST emits HTTP402 x402 v2; buyer independently signs single EIP-3009 authorization.
+Analyzer derived from original same-owner VM2 MIT GitHub Actions risk analyzer; useful static nonsecret text checks of action pins, permissions, unsafe PR events, runner exposure. It neither runs workflows nor certifies security.
+This UI only passed fake-wallet browser tests at release, no genuine independent 0.20 USDC buyer sale confirmed. No private GitHub code or personal/secrets.
