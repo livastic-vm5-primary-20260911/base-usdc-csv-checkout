@@ -57,3 +57,12 @@ The free preview never sends the YAML to VM5. For the paid report, the buyer exp
 `docs/x402-quote-checker.html` exposes a FREE client-side public unsigned x402-v2 JSON/base64 `PAYMENT-REQUIRED` header parser. It **does not fetch the inspected seller's URL**, touch a wallet, collect secrets or claim a benign-looking 402 is safe. It highlights wrong chain/asset/scheme, invalid recipient format, unsupported atomic amount and HTTP resource syntax. Human buyers can separately consent to upload that PUBLIC unsigned quote only to the existing VM5 merchant `GET /v1/x402-preflight?quote=…` for a hosted static 8-check report at `0.01` native Circle Base USDC. The new dynamic paid GET resource quote is bound to the exact user-consented encoded public request URL; changed amount/network/asset/payTo abort before wallet access. No private user source or tokens were involved in release tests.
 
 Original confirmed demand signal (not direct sales): public NoHumans anonymous search-count feed reported recurring multi-day distinct-client searches for x402 endpoint checks/debugging on its Sep20-Oct13 window. This informs discovery/feature priorities but does not prove unique human users, approved paid subscriptions or conversion. Original paid Route was already operating before this static human entry UI. A full real signed buy-and-delivery for this specific client was NOT attempted from an owner wallet. Tests include pure unit/security cases and simulated buyer+tampered price browser flows.
+
+
+## Real buyer feedback (free, no wallet)
+
+We are not assuming that page views, quote reads or developer posts mean actual paying customers. The project has a public issue template asking about **actual tasks**, failed free checks, needed evidence and nonbinding hypothetical willingness to pay. No login except a GitHub account (if creating a public issue), no wallet signature or purchase. Users must not paste keys, signatures, transaction credentials, private customer data, wallet seeds or confidential CSV/YAML.
+
+Submit: https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout/issues/new?template=real-user-feedback.yml
+
+Only genuine unrelated human feedback and verified independent paid onchain settlement counts in the sales funnel. AI-generated feedback, our own VM agents' comments, test checkouts and promotional clicks are not customers.

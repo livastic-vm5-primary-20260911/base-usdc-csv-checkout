@@ -1,0 +1,63 @@
+name: Real user feedback (free / x402 Base USDC tools)
+description: Tell us which real crypto/DeFi or developer problem needs solving before you would pay. No secret data.
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for trying a free checker. One human economic owner maintains this AI-assisted experimental tool. **Nobody has to buy anything to leave feedback.** No promises of return, investment or certification.
+        **Never paste wallet seed phrases, private keys, signatures, API keys, customer data, private CSV/YAML, login tokens or personally identifying information.** Do not share transaction details unless they are intentionally public and you have permission.
+  - type: dropdown
+    id: audience
+    attributes:
+      label: What did you want to accomplish?
+      options:
+        - Check an x402 HTTP 402 quote before making a payment
+        - Debug an x402 browser wallet or payment failure
+        - Check CSV imports, formulas, duplicate rows
+        - Check public GitHub Actions YAML risks
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Describe the actual task, not a hypothetical problem
+      description: Describe the public workflow and what result you needed, without credentials or customer data.
+      placeholder: "I need to know whether my Base USDC 402 quote is on the right chain and how to avoid paying twice when a request times out..."
+    validations:
+      required: true
+  - type: textarea
+    id: pain
+    attributes:
+      label: What prevented you from using the free tool?
+      placeholder: "I couldn't paste my format; a validation warning was unclear; mobile wallet couldn't sign; report missing this check..."
+    validations:
+      required: true
+  - type: dropdown
+    id: willingness
+    attributes:
+      label: Would you pay for an independent, verified report that solved this exact issue?
+      description: This is a preference survey, not a purchase, commitment, quote, credit card request or customer count.
+      options:
+        - No — free is enough
+        - Maybe, under 0.01 USDC per report
+        - Maybe, 0.01–0.05 USDC per report
+        - Maybe, 0.05–0.20 USDC per report
+        - Maybe, above 0.20 USDC for a demonstrably valuable report
+        - Uncertain — need to see evidence first
+    validations:
+      required: true
+  - type: textarea
+    id: trust
+    attributes:
+      label: What evidence would make you trust it enough to pay?
+      placeholder: "Open code, reproducible test, no data upload, on-chain settlement proof, independent client reports, wallet receipt reconciliation..."
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Privacy
+      options:
+        - label: I did not include wallet secrets, signatures, passwords, private customer data or other sensitive information.
+          required: true

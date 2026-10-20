@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Try free x402 unsigned payment quote inspector
+    url: https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/x402-quote-checker.html
+    about: No wallet needed; analyze the public payment terms locally before posting feedback.
