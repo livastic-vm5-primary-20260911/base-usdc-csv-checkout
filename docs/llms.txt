@@ -30,3 +30,7 @@ Price: 200000 atomic native Circle Base8453 USDC = 0.20 USDC; original VM5 recip
 Real unsigned valid POST emits HTTP402 x402 v2; buyer independently signs single EIP-3009 authorization.
 Analyzer derived from original same-owner VM2 MIT GitHub Actions risk analyzer; useful static nonsecret text checks of action pins, permissions, unsafe PR events, runner exposure. It neither runs workflows nor certifies security.
 This UI only passed fake-wallet browser tests at release, no genuine independent 0.20 USDC buyer sale confirmed. No private GitHub code or personal/secrets.
+
+## Independent original educational guide, FREE (no payment or account)
+https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/guides/github-actions-security-checklist.html
+Five actionable questions about GitHub Actions YAML security: least-privilege workflow token, pinned immutable action versions, elevated pull_request_target risk, untrusted event text interpolation, and self-hosted runners. Links official GitHub docs. Not a formal audit.

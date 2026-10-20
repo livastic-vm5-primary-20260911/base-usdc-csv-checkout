@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Practical 2026 GitHub Actions YAML security checklist: least-privilege GITHUB_TOKEN, pinning actions to SHAs, untrusted pull requests, script injection, and self-hosted runners. Free nonsecret local preview.">
+<meta property="og:title" content="GitHub Actions YAML security checklist — 5 checks before merging">
+<meta property="og:description" content="Free original practical CI checklist and browser-only YAML pattern preview. Understand risky permissions, unpinned actions and pull_request_target.">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/guides/github-actions-security-checklist.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../styles.css">
+<title>GitHub Actions YAML security checklist (2026) — five practical CI checks</title>
+</head>
+<body>
+<header class="site-header"><a class="brand" href="../"><span class="brandmark">C</span> CommaCheck <span class="brandlight">/ Base</span></a>
+<nav aria-label="Site links"><a href="../">CSV checker</a><a href="../workflow-risk.html">Free YAML preview</a>
+<a href="#checklist">Five checks</a><a href="#references">GitHub docs</a></nav></header>
+<main>
+<section class="hero" style="padding-bottom:24px">
+<p class="eyebrow">DEVELOPER FIELD GUIDE · 2026 · FREE ORIGINAL TUTORIAL</p>
+<h1>Five GitHub Actions YAML checks before you merge.</h1>
+<p class="lead">A workflow can pass CI and still be configured to trust code or text it should not. These five checks help you identify common risks without uploading any repository files. They are <strong>review prompts</strong>, not proof of an exploitable flaw.</p>
+<p class="small">Prepared by the independently operated, AI-assisted VM5 Delivery Lab. The examples are synthetic. This is not a professional security audit, a claim of discovering a security vulnerability in another repository, or an assessment of a customer's private code.</p>
+<div class="prices">
+<div class="price"><p>Practical guide and local preview</p><strong>Free</strong><span>No login, wallet or code upload.</span></div>
+<div class="price"><p>Optional hosted static report</p><strong>0.20 USDC</strong><span>Only if you explicitly approve a Base payment.</span></div>
+</div>
+</section>
+<article class="workflow" id="checklist">
+<h2>1. Limit the GITHUB_TOKEN to the permissions the job needs</h2>
+<p>The workflow token can be capable of modifying repository resources, depending on configuration and context. Start with the least privilege needed. Avoid broad <code>permissions: write-all</code> unless there is an explicit, well-reviewed business reason. Job-specific permissions can tighten access further.</p>
+<pre class="result code"># Illustrative least-privilege example
+name: Verify
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Replace with approved tests"</pre>
+<p>A local string match for <code>write-all</code> is only a quick reminder: effective permissions may come from workflow, job, repository and organization settings. Human review must check the actual running context.</p>
+
+<h2>2. Check action references and third-party code</h2>
+<p>A version tag like <code>actions/checkout@v4</code> may move. Pinning a reviewed action to its full commit SHA makes the referenced action version harder to change unexpectedly. Review dependencies and follow trusted update practices; a SHA does not independently prove code quality or absence of malicious logic.</p>
+<pre class="result code"># Illustration ONLY; replace the placeholder before use
+- uses: actions/checkout@&lt;REVIEWED_40_CHARACTER_COMMIT_SHA&gt;
+# Do not copy this placeholder into a live workflow.</pre>
+<p>Pay attention to third-party actions that request elevated permissions, upload artifacts, or read secrets. Dependabot or Renovate can help maintain known reviewed pins.</p>
+
+<h2>3. Treat pull_request_target as an elevated-trust trigger</h2>
+<p>GitHub's <code>pull_request_target</code> event uses the base repository's trusted workflow code and may access elevated privileges. It is not intrinsically unsafe: the danger appears when the privileged workflow subsequently checks out or executes untrusted pull-request code. Check whether a job fetches a fork's head commit, untrusted artifact, or dependency before running build/test steps with secrets.</p>
+<pre class="result code"># A trigger to REVIEW, not a standalone vulnerability:
+on:
+  pull_request_target:
+
+# Safer design depends on the task:
+# Use pull_request when a privileged event is unnecessary.
+# Keep untrusted PR code isolated from privileged jobs.</pre>
+<p>GitHub maintains a specific <a href="https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target" rel="noopener noreferrer" target="_blank">secure use guide for pull_request_target</a> describing default protections and the problematic combination of untrusted code execution plus privileged access.</p>
+
+<h2>4. Avoid interpreting untrusted event strings as shell code</h2>
+<p>Issue titles, pull-request bodies, branch names and similar fields can contain attacker-controlled strings. Substituting those directly into an inline <code>run:</code> script can result in shell injection, even when the YAML itself looks valid. Prefer treating user text as data through environment variables and quoted parameters, and follow GitHub's documented defensive patterns.</p>
+<pre class="result code"># Review any direct interpolation from an untrusted event:
+# run: echo "${{ github.event.pull_request.title }}"
+#
+# Prefer environment/data separation, for example:
+env:
+  PR_TITLE: ${{ github.event.pull_request.title }}
+# Then inspect how a subsequent approved script quotes $PR_TITLE.</pre>
+<p>This is a security-review reminder rather than an exploitation demonstration. Whether an actual attack is possible depends on the surrounding shell, escaping and privileges. See <a href="https://docs.github.com/en/actions/concepts/security/script-injections" rel="noopener noreferrer" target="_blank">GitHub's script-injection documentation</a>.</p>
+
+<h2>5. Restrict self-hosted runners and privileged secrets</h2>
+<p>A self-hosted runner may retain state between jobs and can expose internal resources. In particular, running untrusted pull-request code on a non-isolated self-hosted runner is high risk. Use isolated ephemeral infrastructure for sensitive workloads, ensure network restrictions and examine which secrets are available. Public-repository contributions deserve extra care.</p>
+<p>This site’s local checker flags the presence of <code>self-hosted</code> only as a prompt. It cannot assess your runtime isolation, firewall, secret management or effective trust boundary.</p>
+</article>
+
+<section class="workflow" id="tool">
+<div class="section-title"><span class="number">→</span><div><p class="eyebrow">RUN THE FREE HEURISTIC PREVIEW</p><h2>Inspect a permitted YAML sample without an upload</h2></div></div>
+<p>We built a free browser-only pattern preview that highlights unpinned actions, broad token permissions, risky event strings and runner configuration. It does not need MetaMask. You can see an example result on the same page.</p>
+<p><a href="../workflow-risk.html">Open the free GitHub Actions YAML risk preview →</a></p>
+<p>If you want a more detailed structured report, the same page offers a <strong>separately priced 0.20 native Circle USDC/Base x402</strong> static analysis service from the existing VM5 API. It only uploads your nonconfidential YAML after you explicitly approve its single-use payment. It does not execute your workflow, crawl private repos, or guarantee security. The buyer determines whether the added report is worth the charge.</p>
+</section>
+
+<section class="details" id="references">
+<div><p class="eyebrow">FIRST-PARTY BACKGROUND</p><h2>Further reading</h2>
+<p><a href="https://docs.github.com/en/actions/reference/security/secure-use" rel="noopener noreferrer" target="_blank">GitHub Actions — secure use reference</a><br>
+<a href="https://docs.github.com/en/actions/concepts/security/script-injections" rel="noopener noreferrer" target="_blank">GitHub Actions — script injections</a><br>
+<a href="https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target" rel="noopener noreferrer" target="_blank">Securely using pull_request_target</a></p>
+<p class="small">Official guidance changes with GitHub's event policies. Always check GitHub's current documentation and actual permissions before relying on a heuristic finding.</p></div>
+<div><p class="eyebrow">TRANSPARENT OWNERSHIP</p><h2>What is and isn't verified</h2>
+<p>Original demo and storefront: <a href="../workflow-risk.html">CommaCheck GitHub Actions risk check</a>. Algorithmic analysis is based on the same beneficial owner's MIT-licensed <a href="https://github.com/livastic-vm2-primary-20260911/apify-workflow-guard" rel="noopener noreferrer" target="_blank">VM2 original analyzer</a>. Open browser payment frontend: <a href="https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout" rel="noopener noreferrer" target="_blank">VM5 source</a>.</p>
+<p>The site has passed offline and mocked-wallet tests, and its real unsigned payment quotes have been checked. At publication, <strong>no independent customer's completed payment for this new 0.20 USDC storefront had been verified</strong>. Published examples are synthetic; do not equate traffic, quotes, or tests with actual earnings.</p></div>
+</section>
+</main>
+<footer><span>CommaCheck Base · VM5 Delivery Lab · independently developed and AI-assisted</span><span>Read first, inspect without a wallet, purchase only if you choose. <a href="../workflow-risk.html">Try free preview</a></span></footer>
+</body></html>
