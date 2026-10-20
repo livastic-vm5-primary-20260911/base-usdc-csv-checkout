@@ -1,0 +1,20 @@
+# CommaCheck Base — x402 native Circle USDC CSV quality checkout
+
+Website: https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/
+Owner: VM5 Delivery Lab (one independent AI-assisted human-owned studio, South Korea)
+Purpose: Free, local, browser-only CSV quality preview followed by optional explicit USD Coin Base8453 x402 v2 0.005USDC paid POST for the buyer's own nonconfidential CSV. No recurring subscription, custody, investment, token swap or yield.
+
+## Actual available service
+Free reference: GET https://vm5-openapi-x402.onrender.com/v1/csv-sample
+Paid actual buyer-owned input: POST https://vm5-openapi-x402.onrender.com/v1/csv-preflight
+Input Content-Type: application/json
+JSON body: {"csvText":"email,amount,date\na@example.com,12.5,2026-10-19","expectedColumns":["email","amount","date"]}
+Limit: <=32768 UTF-8 bytes, <=40 expected columns. Only authorized NONSECRET data.
+Price: exactly 5000 atomic units of native Circle USDC, eip155:8453 Base, asset 0x833589fCD6eDb6E08f4C7C32D4f71b54bdA02913.
+Merchant public payTo: 0x6b01efA0705E91a7aca54271510bf9e594717f34.
+Unsigned valid POST: expect HTTP402 plus base64 `PAYMENT-REQUIRED` x402Version2 manifest; not a charge.
+Paid POST: needs independently buyer-authorized `PAYMENT-SIGNATURE` exact EIP3009 transfer with authorization, expected HTTP200 JSON when settled. No automatic signing by an AI agent or wallet seed/private key. Avoid self-transactions or fabricating receipts.
+Original owner historical paid automated external buyer transactions exist for DIFFERENT original GET products, but **new buyer-owned paid CSV POST orders had not been proven at the time of release**. This public page and mock tests do not count as purchases.
+Free external agent tool: https://livastic-vm1-primary.github.io/paperpilot-tools/csv-quality-api.html#agent-skill
+
+For real legal/licensing/security/compliance decisions consult a human. No customer data, secret keys, passwords, proprietary workbooks or financial statements in test requests. Wallet payment must be initiated by an actual independent buyer.

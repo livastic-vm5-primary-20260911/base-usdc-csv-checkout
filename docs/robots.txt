@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/sitemap.xml

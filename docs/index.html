@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Inspect CSV quality locally for free. Optionally pay exactly $0.005 in native Base USDC through the x402 protocol for a detailed report on your own nonconfidential CSV. No account, no subscription, no key custody.">
+  <meta property="og:title" content="CommaCheck Base — free CSV preview, 0.005 USDC deep report">
+  <meta property="og:description" content="A verifiable developer tool: free browser-only CSV checks, optional x402 USDC microcheckout with MetaMask on Base.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://livastic-vm5-primary-20260911.github.io/base-usdc-csv-checkout/">
+  <link rel="stylesheet" href="./styles.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src https://vm5-openapi-x402.onrender.com; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>CommaCheck Base — local CSV preview + 0.005 Base USDC on-demand audit</title>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="CommaCheck Base home"><span class="brandmark">C</span> CommaCheck <span class="brandlight">/ Base</span></a>
+    <nav aria-label="Site links">
+      <a href="#try">Try free</a><a href="#pay">USDC checkout</a><a href="#how">How it works</a>
+      <a href="https://github.com/livastic-vm5-primary-20260911/base-usdc-csv-checkout" target="_blank" rel="noopener noreferrer">Source ↗</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">ONE-TIME PAYMENT · NO LOGIN · BASE MAINNET</p>
+      <h1>Check your CSV before it breaks your workflow.</h1>
+      <p class="lead">Find duplicate rows, missing cells and dangerous spreadsheet formula prefixes locally, for free. Need a deeper structured report on <em>your own</em> nonconfidential CSV? Pay a tiny fixed amount of native Circle USDC on Base — only when you choose.</p>
+      <div class="prices">
+        <div class="price"><p>Free local preview</p><strong>$0</strong><span>No wallet. No upload.</span></div>
+        <div class="price"><p>Full API report</p><strong id="price">0.005 USDC</strong><span>One x402 payment, not a subscription.</span></div>
+      </div>
+      <p class="trustline">No wallet keys, no approvals, no deposits, no DeFi yield promises, no tracking scripts. <a href="#privacy">Understand data handling.</a></p>
+    </section>
+    <section class="workflow" id="try" aria-labelledby="csv-heading">
+      <div class="section-title"><span class="number">01</span><div><p class="eyebrow">REAL UTILITY • FREE</p><h2 id="csv-heading">Inspect a small CSV in your browser</h2></div></div>
+      <p>The sample is already filled in. Choose a CSV file (max 32 KiB UTF-8) or paste text. Local checks never leave your browser.</p>
+      <label class="field"><span>Choose a local .csv file, or edit the sample below</span><input id="file" type="file" accept=".csv,text/csv,text/plain"></label>
+      <label class="field"><span>CSV data — nonsecret only</span><textarea id="csv" spellcheck="false" rows="9" maxlength="32768" aria-describedby="data-hint"></textarea></label>
+      <p class="small" id="data-hint">Never paste passwords, private keys, customer PII, proprietary workbooks or sensitive financial records. Only intentionally share data you are authorized to process.</p>
+      <label class="field"><span>Optional expected column names (comma-separated)</span><input id="expected" type="text" maxlength="2000" placeholder="If blank, use the CSV header" autocomplete="off"></label>
+      <div class="actions"><button type="button" id="preview" class="primary">Run free local preview</button></div>
+      <div id="local-preview" class="result" aria-live="polite" hidden></div>
+    </section>
+    <section class="workflow" id="pay" aria-labelledby="pay-heading">
+      <div class="section-title"><span class="number">02</span><div><p class="eyebrow">OPTIONAL · BUYER-INITIATED</p><h2 id="pay-heading">Request an on-chain USDC report</h2></div></div>
+      <p>First verify the merchant's live quote. That price check sends <strong>public synthetic example data only</strong>, not your selected CSV, and requests no wallet access. A separate explicit confirmation will be required to authorize a payment and transmit your CSV.</p>
+      <div class="actions">
+        <button type="button" id="inspect" disabled>1 — Check the live 0.005 USDC quote</button>
+      </div>
+      <div id="payment-details" class="quote-panel" hidden>
+        <div class="quote-line"><span>Live quote</span><strong id="quoted">Not quoted</strong></div>
+        <div class="quote-line"><span>Network</span><strong>Base mainnet · eip155:8453</strong></div>
+        <div class="quote-line mono"><span>Token</span><code id="token"></code></div>
+        <div class="quote-line mono"><span>Payee</span><code id="recipient"></code></div>
+        <p class="small">The app halts checkout if the server unexpectedly changes the exact amount, asset, payment scheme, network, or payee address.</p>
+      </div>
+      <label class="consent"><input type="checkbox" id="consent"><span>I own or am authorized to send this <strong>nonconfidential</strong> CSV to VM5's remote API, understand the one-time 0.005 USDC charge and accept the risk of failed/pending settlement. I will inspect the wallet signature prompt.</span></label>
+      <div class="actions"><button class="primary pay" type="button" id="authorize" disabled>2 — Authorize exactly one Base USDC payment</button></div>
+      <p class="small">Works with a compatible EIP-1193 wallet (e.g., MetaMask), Base mainnet, and native Circle USDC. The wallet shows an <em>EIP-712 transfer authorization</em> for a fixed amount, not a blanket token approval or private-key request. A supported x402 facilitator pays the on-chain execution gas; no guarantee of successful settlement is made. Never repeat a signed payment while its outcome is unknown.</p>
+      <a id="transaction" href="https://basescan.org/" target="_blank" rel="noopener noreferrer" hidden>View the payment transaction on BaseScan ↗</a>
+      <pre id="paid-output" class="result code" aria-live="polite" hidden></pre>
+      <div role="status" id="status" class="status" data-state="info" aria-live="polite"></div>
+    </section>
+    <section class="details" id="how">
+      <div><p class="eyebrow">WHY IT EXISTS</p><h2>Not every CSV needs a subscription.</h2>
+      <p>Import pipelines, spreadsheet exports and agent-generated CSVs frequently contain misplaced delimiters, repeated data or formula-like cells. Start with local results, then purchase a reproducible machine-readable analysis when it is useful.</p></div>
+      <div class="steps">
+        <div><b>1.</b><p><strong>Preview</strong> — Only your browser inspects your file. No login.</p></div>
+        <div><b>2.</b><p><strong>Quote</strong> — The real x402 seller returns HTTP 402. A public example is used for the quote.</p></div>
+        <div><b>3.</b><p><strong>Authorize</strong> — Your wallet signs one exact Base USDC EIP-3009 authorization after you confirm amount and payee.</p></div>
+        <div><b>4.</b><p><strong>Receive</strong> — The existing API returns a JSON structural report if payment verifies and settles; otherwise you see a clear error, not a fake receipt.</p></div>
+      </div>
+    </section>
+    <section class="details" id="privacy">
+      <div><p class="eyebrow">TRANSPARENT SCOPE</p><h2>What this tool does — and does not do.</h2>
+      <p>Local preview: all parsing stays in your browser. A paid request submits CSV bytes to <a href="https://vm5-openapi-x402.onrender.com/v1/docs" target="_blank" rel="noopener noreferrer">VM5's existing public API</a>; this service states it does not persist user CSV and omits raw row values in reports, but do not submit confidential data. Code is public for inspection.</p></div>
+      <div><p><strong>Limitations.</strong> Heuristic data quality reports are not an audit, compliance guarantee, medical/financial advice, malware scan or data-loss prevention. x402 availability, wallet compatibility, network gas arrangements and processing can change. Signatures may settle even if the browser times out. No refunds or recurring services are promised.</p>
+      <p>For API-first buyers, use <a href="https://vm5-openapi-x402.onrender.com/v1/csv-sample" target="_blank" rel="noopener noreferrer">free sample JSON</a> and <a href="https://vm5-openapi-x402.onrender.com/v1/docs" target="_blank" rel="noopener noreferrer">full x402 API docs</a>. For a no-wallet, offline agent skill, see <a href="https://livastic-vm1-primary.github.io/paperpilot-tools/csv-quality-api.html#agent-skill" target="_blank" rel="noopener noreferrer">PaperPilot's free CSV checks</a>.</p></div>
+    </section>
+  </main>
+  <footer><span>CommaCheck Base · VM5 Delivery Lab · independent AI-assisted software tool</span><span>One actual owner, not an investment or yield program. <a href="mailto:onecursora1@gmail.com?subject=CommaCheck%20Base%20question">Support</a> · <a href="./llms.txt">Agent guide</a></span></footer>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>
